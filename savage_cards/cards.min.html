@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="copyright" content="Karel Wintersky, 2017-02-03">
+    <title>SW Cards roller</title>
+    <style type="text/css">
+        .select_prefix {
+            font-size: x-large;
+        }
+        select {
+            height: 3rem;
+            font-size: x-large;
+            min-width: 3em;
+        }
+        button {
+            height: 3em;
+            width: 7em;
+        }
+        #target-alone-card {
+            font-size: x-large;
+        }
+        .cards-set {
+            max-width: 50%;
+            word-wrap: break-word;
+        }
+        .card-in-card-set {
+            font-size: x-large;
+            margin-left: 5px;
+            display: inline-block;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-right: 0.5em;
+        }
+
+    </style>
+    <script type="text/javascript">
+        function getEnvironment(){return"undefined"!=typeof process?"nodejs":"undefined"!=typeof navigator?"brower":void 0}function fillCardsArray(){var b=[],c=["2","3","4","5","6","7","8","9","10","J","Q","K","A"],d="nodejs"==getEnvironment()?["H","D","C","S"]:["♥","♦","♣","♠"];for(var e in d){var f=e<2?"#FF0000":"#000000";for(var g in c){var h={};h.lead=d[e],h.rank=c[g],h.display=h.rank+h.lead,h.color=f,b.push(h),h=null}}return h={},h.lead="",h.rank="Joker",h.display=h.rank,h.color="#FF0000",b.push(h),h={},h.lead="",h.rank="Joker",h.display=h.rank,h.color="#000000",b.push(h),h=null,b}function drawCards(a,b){var c=[];for(i=1;i<=b&&0!=a.length;i++){var d=Math.floor(Math.random()*a.length),e=a.splice(d,1);c=c.concat(e)}return c}function drawAloneCard(a){var b=Math.floor(Math.random()*a.length);return a[b]}var card_template={lead:"",rank:"",display:"",color:""};
+    </script>
+    <script type="text/javascript">
+        function $$(a){return"string"==typeof a?document.getElementById(a):a}function addOnClickEvent(a,b){var c=$$(a);c[window.addEventListener?"addEventListener":"attachEvent"](window.addEventListener?"click":"onclick",b,!1)}function paintCards(a,b){}function paintAloneCard(a,b){$$(b).innerHTML=a.display,$$(b).style.color=a.color}function init(){window.deck=fillCardsArray(),$$("target-deck-size").innerHTML=window.deck.length,addOnClickEvent("action-shuffle-deck",function(){window.deck=fillCardsArray(),$$("target-cards-set").innerHTML="",$$("target-deck-size").innerHTML=window.deck.length,$$("action-draw-alone-card").disabled=!1}),addOnClickEvent("action-draw-alone-card",function(){var a=drawAloneCard(window.deck);paintAloneCard(a,"target-alone-card")}),addOnClickEvent("action-draw-next-card-for-set",function(){var a=drawCards(window.deck,1)[0],b='<p style="color: '+a.color+'" class="card-in-card-set">'+a.display+"</p>";$$("target-cards-set").innerHTML+=b,$$("target-deck-size").innerHTML=window.deck.length,0==window.deck.length&&($$("action-draw-alone-card").disabled=!0)}),addOnClickEvent("action-draw-cards-for-set",function(){var a=$$("select-set-size"),b=a.options[a.selectedIndex].value,c=drawCards(window.deck,b),d="",e="";for(var f in c){var g=c[f];d='<p style="color: '+g.color+'" class="card-in-card-set">'+g.display+"</p>",e+=d}$$("target-cards-set").innerHTML+=e,$$("target-deck-size").innerHTML=window.deck.length,0==window.deck.length&&($$("action-draw-alone-card").disabled=!0)})}var deck=[];
+    </script>
+</head>
+<body onLoad="init();">
+<button id="action-shuffle-deck">Shuffle deck</button>
+<br/>
+Deck size: <span id="target-deck-size"></span>
+
+<hr>
+
+<button id="action-draw-alone-card" class="button-draw-alone">
+    Draw alone card<br/><br/>
+    <span id="target-alone-card">...</span>
+</button>
+<hr>
+
+<div class="select_prefix">#
+    <select id="select-set-size">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
+    <button id="action-draw-cards-for-set">Draw card set</button>
+    <button id="action-draw-next-card-for-set">Draw next card for set</button>
+</div>
+
+
+<br/>
+<fieldset class="cards-set">
+    <div id="target-cards-set"></div>
+</fieldset>
+</body>
+</html>
