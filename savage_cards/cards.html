@@ -2,17 +2,67 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <meta name="copyright" content="Karel Wintersky, 2017-02-03">
+    <title>SW Cards roller</title>
     <style type="text/css">
+        .select_prefix {
+            font-size: x-large;
+        }
+        select {
+            height: 3rem;
+            font-size: x-large;
+            min-width: 3em;
+        }
+        button {
+            height: 3em;
+            width: 7em;
+        }
+        #target-alone-card {
+            font-size: x-large;
+        }
+        .cards-set {
+            word-wrap: break-word;
+        }
+        .card-in-card-set {
+            font-size: x-large;
+            margin-left: 5px;
+        }
 
     </style>
+    <script type="text/javascript" src="cards.js"></script>
     <script type="text/javascript" src="core.js"></script>
-    <script type="text/javascript">
-        // var cards_array = fillCardsArray();
-        // console.log(cards_array);
-    </script>
+    <script type="text/javascript"></script>
 </head>
-<body>
+<body onLoad="init();">
+    <button id="action-shuffle-deck">Shuffle deck</button>
+    <br/>
+    Deck size: <span id="target-deck-size"></span>
 
+    <hr>
+
+    <button id="action-draw-alone-card" class="button-draw-alone">
+    Draw alone card<br/><br/>
+        <span id="target-alone-card">...</span>
+    </button>
+    <hr>
+
+    <div class="select_prefix">#
+        <select id="select-set-size">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <button>Draw card set</button>
+        <button id="action-draw-next-card-for-set">Draw next card for set</button>
+    </div>
+
+
+    <br/>
+    <!-- <input type="text" size="50" id="target-cards-set" class="cards-set"> -->
+    <fieldset class="cards-set">
+        <div id="target-cards-set"></div>
+    </fieldset>
 </body>
 </html>
