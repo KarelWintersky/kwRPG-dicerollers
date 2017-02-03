@@ -1,2 +1,2 @@
 # kwRPG-dicerollers
-kw TRPG Dicerollers collection
+TRPG Dicerollers collection
