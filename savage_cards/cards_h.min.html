@@ -14,8 +14,8 @@
             min-width: 3em;
         }
         button {
-            height: 3em;
-            width: 7em;
+            height: 5em;
+            width: 9em;
         }
         #target-alone-card {
             font-size: x-large;
@@ -23,6 +23,7 @@
         .cards-set {
             max-width: 50%;
             word-wrap: break-word;
+            border: 0;
         }
         .card-in-card-set {
             font-size: x-large;
@@ -31,6 +32,7 @@
             margin-top: 0;
             margin-bottom: 0;
             margin-right: 0.5em;
+
         }
 
     </style>
@@ -44,19 +46,20 @@
 <body onLoad="init();">
 <table width="100%" border="0">
     <tr>
-        <td colspan="3">Deck size: <span id="target-deck-size"></span></td>
+        <td colspan="2">Deck size: <span id="target-deck-size"></span></td>
+        <td>Draw cards set</td>
     </tr>
     <tr>
-        <td width="20%">
+        <td width="20%" valign="middle">
             <button id="action-shuffle-deck">Shuffle deck</button>
         </td>
-        <td width="20%">
+        <td width="20%" valign="middle">
             <button id="action-draw-alone-card" class="button-draw-alone">
-                Draw alone card
+                Draw card and put it back
             </button>&nbsp;&nbsp;
-            <span id="target-alone-card" style="font-size:xx-large"></span>
+            <span id="target-alone-card" style="font-size:xx-large;"></span>
         </td>
-        <td>
+        <td valign="middle">
             <div class="select_prefix">#
                 <select id="select-set-size">
                     <option value="1">1</option>
@@ -65,12 +68,12 @@
                     <option value="4">4</option>
                     <option value="5">5</option>
                 </select>
-                <button id="action-draw-cards-for-set">Draw card set</button>
-                <button id="action-draw-next-card-for-set">Draw next card for set</button>
+                <button id="action-draw-cards-for-set">Draw set</button>
+                <button id="action-draw-next-card-for-set">Draw card</button>
             </div>
         </td>
     </tr>
-    <tr>
+    <tr valign="middle">
         <td colspan="3">
             <fieldset class="cards-set">
                 <div id="target-cards-set"></div>
