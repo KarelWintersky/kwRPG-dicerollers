@@ -48,7 +48,7 @@ function fillCardsArray() {
     for (var lead in available_leads) {
         // set color
         var color
-            = (lead < 3)
+            = (lead < 2)
             ? '#FF0000'
             : '#000000';
 

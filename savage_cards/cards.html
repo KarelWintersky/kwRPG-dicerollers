@@ -21,11 +21,16 @@
             font-size: x-large;
         }
         .cards-set {
+            max-width: 50%;
             word-wrap: break-word;
         }
         .card-in-card-set {
             font-size: x-large;
             margin-left: 5px;
+            display: inline-block;
+            margin-top: 0;
+            margin-bottom: 0;
+            margin-right: 0.5em;
         }
 
     </style>
@@ -54,7 +59,7 @@
             <option value="4">4</option>
             <option value="5">5</option>
         </select>
-        <button>Draw card set</button>
+        <button id="action-draw-cards-for-set">Draw card set</button>
         <button id="action-draw-next-card-for-set">Draw next card for set</button>
     </div>
 
