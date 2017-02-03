@@ -42,36 +42,42 @@
     </script>
 </head>
 <body onLoad="init();">
-<button id="action-shuffle-deck">Shuffle deck</button>
-<br/>
-Deck size: <span id="target-deck-size"></span>
+<table width="100%" border="0">
+    <tr>
+        <td colspan="3">Deck size: <span id="target-deck-size"></span></td>
+    </tr>
+    <tr>
+        <td width="20%">
+            <button id="action-shuffle-deck">Shuffle deck</button>
+        </td>
+        <td width="20%">
+            <button id="action-draw-alone-card" class="button-draw-alone">
+                Draw alone card
+            </button>&nbsp;&nbsp;
+            <span id="target-alone-card" style="font-size:xx-large"></span>
+        </td>
+        <td>
+            <div class="select_prefix">#
+                <select id="select-set-size">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <button id="action-draw-cards-for-set">Draw card set</button>
+                <button id="action-draw-next-card-for-set">Draw next card for set</button>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <fieldset class="cards-set">
+                <div id="target-cards-set"></div>
+            </fieldset>
+        </td>
+    </tr>
+</table>
 
-<hr>
-
-<button id="action-draw-alone-card" class="button-draw-alone">
-    Draw alone card
-</button>&nbsp;&nbsp;
-<span id="target-alone-card" style="font-size:xx-large"></span>
-
-<hr>
-
-<div class="select_prefix">#
-    <select id="select-set-size">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <button id="action-draw-cards-for-set">Draw card set</button>
-    <button id="action-draw-next-card-for-set">Draw next card for set</button>
-</div>
-
-
-<br/>
-<fieldset class="cards-set">
-    <div id="target-cards-set"></div>
-</fieldset>
 </body>
 </html>
-<!-- https://github.com/KarelWintersky/kwRPG-dicerollers -->
