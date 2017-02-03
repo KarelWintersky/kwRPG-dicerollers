@@ -17,35 +17,7 @@ var card_template = {
 };
 
 /**
- * Получить N-ый элемент хэша.
- * @param arr
- * @param n
- * @returns {*}
- * НЕ ИСПОЛЬЗУЕТСЯ
- */
-function getNthArrayElement(arr, n)
-{
-    for (var i in arr) {
-        if (!arr.hasOwnProperty(i)) continue
-        else return arr[i];
-    }
-}
-
-/**
- * Отладочная функция: выводит в консоль информацию о среде запуска скрипта
- */
-function where() {
-    if (typeof(process) != 'undefined') {
-        console.log(process.release.name + ' ' + process.versions.node);
-    };
-    if (typeof(navigator) != 'undefined') {
-        console.log(navigator.userAgent);
-    }
-}
-
-/**
- * Возвращает nodejs или browser в зависимости от того, где запущен
- * скрипт.
+ * Возвращает nodejs или browser в зависимости от того, где запущен скрипт.
  * Используется для установки данных в отладочных целях.
  * Отладку проводим в nodejs
  * @returns {*}
@@ -75,6 +47,7 @@ function fillCardsArray()
         : ['♥', '♦', '♣', '♠'];
 
     for (var lead in available_leads) {
+        // set color
         var color
             = (lead < 3)
             ? '#FF0000'
@@ -107,20 +80,12 @@ function fillCardsArray()
     // card.display = card.rank;
     card.color = '#000000';
     storage.push( card );
+
     card = null;
 
     return storage;
-
 }
 
-/**
- * Кидает 1dN
- * @param N
- * @returns {number}
- */
-function diceroll(N) {
-    return Math.floor( Math.random() * N + 1);
-}
 
 /**
  * Вытягивает из колоды несколько карт, помещает их во временную
@@ -133,14 +98,16 @@ function drawCards(cards_array, N) {
     var miniDeck = [];
 
     for (i = 1; i <= N; i++) {
-        console.log('iteration: ', i, ' | source deck size before: ', cards_array.length);
+        if (cards_array.length == 0) break; // prevent redundant iterations
 
-        var r = diceroll ( cards_array.length );
+        // console.log('iteration: ', i, ' | source deck size before: ', cards_array.length);
+
+        var r = Math.floor( Math.random() * cards_array.length );
         var card = cards_array.splice( r, 1 );
         miniDeck = miniDeck.concat( card );
 
-        console.log('  rolled: ', r, ' | card is ', card);
-        console.log('    new deck size: ', miniDeck.length, ' | source deck size after: ', cards_array.length, '\n');
+        // console.log('  rolled: ', r, ' | card is ', card);
+        // console.log('    new deck size: ', miniDeck.length, ' | source deck size after: ', cards_array.length, '\n');
     }
 
     return miniDeck;
@@ -149,7 +116,7 @@ function drawCards(cards_array, N) {
 var full_deck = fillCardsArray();
 // console.log( full_deck.length, full_deck );
 
-var new_deck = drawCards(full_deck, 54);
+var new_deck = drawCards(full_deck, 100);
 
 console.log( 'new_deck.length ', new_deck.length );
 
