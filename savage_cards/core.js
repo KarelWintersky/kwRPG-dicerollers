@@ -10,17 +10,41 @@ function addOnClickEvent(id, func) {
     el[window.addEventListener ? 'addEventListener' : 'attachEvent']( window.addEventListener ? 'click' : 'onclick', func, false);
 }
 
+/**
+ * Рисует последовательность карт, добавляя её к контейнеру target
+ * @param cards
+ * @param target
+ */
 function paintCards(cards, target) {
+    var message = '';
+    var complete_message = '';
 
+    for (var index in cards) {
+        var card = cards[index];
+        message = '<p style="color: ' + card.color +
+            '" class="card-in-card-set">' + card.display + '</p>';
+        complete_message += message;
+    }
+
+    $$(target).innerHTML += complete_message;
 }
 
+/**
+ * Рисует одинокую карту
+ * @param card
+ * @param target
+ */
 function paintAloneCard(card, target) {
-    $$(target).innerHTML = card.display;
-    $$(target)['style']['color'] = card.color;
+    // $$(target).innerHTML = card.display;
+    // $$(target)['style']['color'] = card.color;
+    var message = '<p style="color: ' + card.color +
+        '" class="card-in-card-set">' + card.display + '</p>';
+    $$(target).innerHTML = message;
 }
 
-
-
+/**
+ * Основная функция - инициализация, где повешены все обработчики
+ */
 function init() {
     /*if (window.location.protocol === 'file:') {
         $$('note').style.display = 'none';
@@ -29,8 +53,7 @@ function init() {
     window.deck = fillCardsArray();
     $$('target-deck-size').innerHTML = window.deck.length;
 
-
-    // куки
+    // Хуки
     // Перемешать колоду (переинициализировать)
     addOnClickEvent('action-shuffle-deck', function(){
         window.deck = fillCardsArray();
@@ -48,10 +71,10 @@ function init() {
 
     // Вытягиваем одну карту из колоды и "выводим на стол"
     addOnClickEvent('action-draw-next-card-for-set', function(){
-        var card = drawCards(window.deck, 1)[0];
-        var message = '<p style="color: ' + card.color +
-            '" class="card-in-card-set">' + card.display + '</p>';
-        $$('target-cards-set').innerHTML += message;
+        var cards = drawCards(window.deck, 1);
+        if (cards.length === 0) return;
+
+        paintCards(cards, 'target-cards-set');
 
         $$('target-deck-size').innerHTML = window.deck.length;
 
@@ -63,18 +86,12 @@ function init() {
     addOnClickEvent('action-draw-cards-for-set', function(){
         var selector = $$('select-set-size');
         var count = selector.options[selector.selectedIndex].value;
+
         var cards = drawCards(window.deck, count);
-        var message = '';
-        var complete_message = '';
+        if (cards.length === 0) return;
 
-        for (var index in cards) {
-            var card = cards[index];
-            message = '<p style="color: ' + card.color +
-                '" class="card-in-card-set">' + card.display + '</p>';
-            complete_message += message;
-        }
+        paintCards(cards, 'target-cards-set');
 
-        $$('target-cards-set').innerHTML += complete_message;
         $$('target-deck-size').innerHTML = window.deck.length;
 
         if (window.deck.length == 0) {
