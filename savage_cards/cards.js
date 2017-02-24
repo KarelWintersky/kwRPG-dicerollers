@@ -110,20 +110,3 @@ function drawAloneCard(cards_array) {
     return cards_array[r];
 }
 
-// var full_deck = fillCardsArray();
-// console.log( full_deck.length, full_deck );
-
-// var new_deck = drawCards(full_deck, 100);
-// console.log( 'new_deck.length ', new_deck.length );
-// console.log( 'full_deck.length: ', full_deck.length, full_deck );
-
-/*
-var deck = drawCards(full_deck, 3);
-console.log( deck );
-
-console.log( drawAloneCard( deck ) );
-console.log( drawAloneCard( deck ) );
-console.log( drawAloneCard( deck ) );
-*/
-
-

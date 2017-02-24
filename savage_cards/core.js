@@ -5,6 +5,11 @@ function $$(id) {
     return id;
 }
 
+/**
+ * Вешает обработчик на элемент
+ * @param id
+ * @param func
+ */
 function addOnClickEvent(id, func) {
     var el = $$(id);
     el[window.addEventListener ? 'addEventListener' : 'attachEvent']( window.addEventListener ? 'click' : 'onclick', func, false);
@@ -35,13 +40,28 @@ function paintCards(cards, target) {
  * @param target
  */
 function paintAloneCard(card, target) {
-    // $$(target).innerHTML = card.display;
-    // $$(target)['style']['color'] = card.color;
     var message = '<p style="color: ' + card.color +
         '" class="card-in-card-set">' + card.display + '</p>';
     $$(target).innerHTML = message;
 }
 
+/**
+ * Устанавливает статус кнопок вытягивания карт.
+ * Disabled если колода пуста, Enabled в остальных случаях
+ * Вызывается как setDrawButtonsState(window.deck);
+ * @param deck
+ */
+function setDrawButtonsState(deck) {
+    if (deck.length === 0) {
+        $$('action-draw-alone-card').disabled = true;
+        $$('action-draw-cards-for-set').disabled = true;
+        $$('action-draw-next-card-for-set').disabled = true;
+    } else {
+        $$('action-draw-alone-card').disabled = false;
+        $$('action-draw-cards-for-set').disabled = false;
+        $$('action-draw-next-card-for-set').disabled = false;
+    }
+}
 /**
  * Основная функция - инициализация, где повешены все обработчики
  */
@@ -60,7 +80,7 @@ function init() {
         $$('target-cards-set').innerHTML = '';
 
         $$('target-deck-size').innerHTML = window.deck.length;
-        $$('action-draw-alone-card').disabled = false;
+        setDrawButtonsState(window.deck);
     });
 
     // Вытянуть одну карту без изъятия из колоды
@@ -78,9 +98,7 @@ function init() {
 
         $$('target-deck-size').innerHTML = window.deck.length;
 
-        if (window.deck.length == 0) {
-            $$('action-draw-alone-card').disabled = true;
-        }
+        setDrawButtonsState(window.deck);
     });
 
     addOnClickEvent('action-draw-cards-for-set', function(){
@@ -94,9 +112,7 @@ function init() {
 
         $$('target-deck-size').innerHTML = window.deck.length;
 
-        if (window.deck.length == 0) {
-            $$('action-draw-alone-card').disabled = true;
-        }
+        setDrawButtonsState(window.deck);
     });
 }
 

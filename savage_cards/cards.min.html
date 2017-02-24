@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="copyright" content="Karel Wintersky, 2017-02-03">
+    <meta name="copyright" content="Karel Wintersky, 2017-02-24">
+    <meta name="author" content="https://github.com/KarelWintersky/kwRPG-dicerollers">
     <title>SW Cards roller</title>
     <style type="text/css">
         .select_prefix {
@@ -34,11 +35,11 @@
         }
 
     </style>
-    <script type="text/javascript">
+    <script type="text/javascript" data-file="cards.js">
         function getEnvironment(){return"undefined"!=typeof process?"nodejs":"undefined"!=typeof navigator?"brower":void 0}function fillCardsArray(){var b=[],c=["2","3","4","5","6","7","8","9","10","J","Q","K","A"],d="nodejs"==getEnvironment()?["H","D","C","S"]:["♥","♦","♣","♠"];for(var e in d){var f=e<2?"#FF0000":"#000000";for(var g in c){var h={};h.lead=d[e],h.rank=c[g],h.display=h.rank+h.lead,h.color=f,b.push(h),h=null}}return h={},h.lead="",h.rank="Joker",h.display=h.rank,h.color="#FF0000",b.push(h),h={},h.lead="",h.rank="Joker",h.display=h.rank,h.color="#000000",b.push(h),h=null,b}function drawCards(a,b){var c=[];for(i=1;i<=b&&0!=a.length;i++){var d=Math.floor(Math.random()*a.length),e=a.splice(d,1);c=c.concat(e)}return c}function drawAloneCard(a){var b=Math.floor(Math.random()*a.length);return a[b]}var card_template={lead:"",rank:"",display:"",color:""};
     </script>
-    <script type="text/javascript">
-        function $$(a){return"string"==typeof a?document.getElementById(a):a}function addOnClickEvent(a,b){var c=$$(a);c[window.addEventListener?"addEventListener":"attachEvent"](window.addEventListener?"click":"onclick",b,!1)}function paintCards(a,b){}function paintAloneCard(a,b){$$(b).innerHTML=a.display,$$(b).style.color=a.color}function init(){window.deck=fillCardsArray(),$$("target-deck-size").innerHTML=window.deck.length,addOnClickEvent("action-shuffle-deck",function(){window.deck=fillCardsArray(),$$("target-cards-set").innerHTML="",$$("target-deck-size").innerHTML=window.deck.length,$$("action-draw-alone-card").disabled=!1}),addOnClickEvent("action-draw-alone-card",function(){var a=drawAloneCard(window.deck);paintAloneCard(a,"target-alone-card")}),addOnClickEvent("action-draw-next-card-for-set",function(){var a=drawCards(window.deck,1)[0],b='<p style="color: '+a.color+'" class="card-in-card-set">'+a.display+"</p>";$$("target-cards-set").innerHTML+=b,$$("target-deck-size").innerHTML=window.deck.length,0==window.deck.length&&($$("action-draw-alone-card").disabled=!0)}),addOnClickEvent("action-draw-cards-for-set",function(){var a=$$("select-set-size"),b=a.options[a.selectedIndex].value,c=drawCards(window.deck,b),d="",e="";for(var f in c){var g=c[f];d='<p style="color: '+g.color+'" class="card-in-card-set">'+g.display+"</p>",e+=d}$$("target-cards-set").innerHTML+=e,$$("target-deck-size").innerHTML=window.deck.length,0==window.deck.length&&($$("action-draw-alone-card").disabled=!0)})}var deck=[];
+    <script type="text/javascript" data-file="core.js">
+        function $$(a){return"string"==typeof a?document.getElementById(a):a}function addOnClickEvent(a,b){var c=$$(a);c[window.addEventListener?"addEventListener":"attachEvent"](window.addEventListener?"click":"onclick",b,!1)}function paintCards(a,b){var c="",d="";for(var e in a){var f=a[e];c='<p style="color: '+f.color+'" class="card-in-card-set">'+f.display+"</p>",d+=c}$$(b).innerHTML+=d}function paintAloneCard(a,b){var c='<p style="color: '+a.color+'" class="card-in-card-set">'+a.display+"</p>";$$(b).innerHTML=c}function setDrawButtonsState(a){0===a.length?($$("action-draw-alone-card").disabled=!0,$$("action-draw-cards-for-set").disabled=!0,$$("action-draw-next-card-for-set").disabled=!0):($$("action-draw-alone-card").disabled=!1,$$("action-draw-cards-for-set").disabled=!1,$$("action-draw-next-card-for-set").disabled=!1)}function init(){window.deck=fillCardsArray(),$$("target-deck-size").innerHTML=window.deck.length,addOnClickEvent("action-shuffle-deck",function(){window.deck=fillCardsArray(),$$("target-cards-set").innerHTML="",$$("target-deck-size").innerHTML=window.deck.length,setDrawButtonsState(window.deck)}),addOnClickEvent("action-draw-alone-card",function(){var a=drawAloneCard(window.deck);paintAloneCard(a,"target-alone-card")}),addOnClickEvent("action-draw-next-card-for-set",function(){var a=drawCards(window.deck,1);0!==a.length&&(paintCards(a,"target-cards-set"),$$("target-deck-size").innerHTML=window.deck.length,setDrawButtonsState(window.deck))}),addOnClickEvent("action-draw-cards-for-set",function(){var a=$$("select-set-size"),b=a.options[a.selectedIndex].value,c=drawCards(window.deck,b);0!==c.length&&(paintCards(c,"target-cards-set"),$$("target-deck-size").innerHTML=window.deck.length,setDrawButtonsState(window.deck))})}var deck=[];
     </script>
 </head>
 <body onLoad="init();">
@@ -74,4 +75,3 @@ Deck size: <span id="target-deck-size"></span>
 </fieldset>
 </body>
 </html>
-<!-- https://github.com/KarelWintersky/kwRPG-dicerollers -->

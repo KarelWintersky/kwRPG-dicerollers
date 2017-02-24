@@ -49,3 +49,20 @@ function padZeroes(num) {
     return ("000" + num).substr(-3, 3);
 }
 
+
+// var full_deck = fillCardsArray();
+// console.log( full_deck.length, full_deck );
+
+// var new_deck = drawCards(full_deck, 100);
+// console.log( 'new_deck.length ', new_deck.length );
+// console.log( 'full_deck.length: ', full_deck.length, full_deck );
+
+/*
+ var deck = drawCards(full_deck, 3);
+ console.log( deck );
+
+ console.log( drawAloneCard( deck ) );
+ console.log( drawAloneCard( deck ) );
+ console.log( drawAloneCard( deck ) );
+ */
+
